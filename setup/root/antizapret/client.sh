@@ -131,9 +131,9 @@ addOpenVPN(){
 		exit 11
 	fi
 
-	render "/etc/openvpn/client/templates/antizapret-udp.conf" > "/root/antizapret/client/openvpn/antizapret-udp/antizapret-$FILE_NAME-udp.ovpn"
-	render "/etc/openvpn/client/templates/antizapret-tcp.conf" > "/root/antizapret/client/openvpn/antizapret-tcp/antizapret-$FILE_NAME-tcp.ovpn"
-	render "/etc/openvpn/client/templates/antizapret.conf" > "/root/antizapret/client/openvpn/antizapret/antizapret-$FILE_NAME.ovpn"
+	render "/etc/openvpn/client/templates/antizapret-udp.conf" > "/root/antizapret/client/openvpn/antizapret-udp/$FILE_NAME-udp.ovpn"
+	render "/etc/openvpn/client/templates/antizapret-tcp.conf" > "/root/antizapret/client/openvpn/antizapret-tcp/$FILE_NAME-tcp.ovpn"
+	render "/etc/openvpn/client/templates/antizapret.conf" > "/root/antizapret/client/openvpn/antizapret/$FILE_NAME.ovpn"
 	render "/etc/openvpn/client/templates/vpn-udp.conf" > "/root/antizapret/client/openvpn/vpn-udp/vpn-$FILE_NAME-udp.ovpn"
 	render "/etc/openvpn/client/templates/vpn-tcp.conf" > "/root/antizapret/client/openvpn/vpn-tcp/vpn-$FILE_NAME-tcp.ovpn"
 	render "/etc/openvpn/client/templates/vpn.conf" > "/root/antizapret/client/openvpn/vpn/vpn-$FILE_NAME.ovpn"
@@ -151,9 +151,9 @@ deleteOpenVPN(){
 	cp ./pki/crl.pem /etc/openvpn/server/keys/crl.pem
 	chmod 644 /etc/openvpn/server/keys/crl.pem
 
-	rm -f /root/antizapret/client/openvpn/antizapret/antizapret-$FILE_NAME.ovpn
-	rm -f /root/antizapret/client/openvpn/antizapret-udp/antizapret-$FILE_NAME-udp.ovpn
-	rm -f /root/antizapret/client/openvpn/antizapret-tcp/antizapret-$FILE_NAME-tcp.ovpn
+	rm -f /root/antizapret/client/openvpn/antizapret/$FILE_NAME.ovpn
+	rm -f /root/antizapret/client/openvpn/antizapret-udp/$FILE_NAME-udp.ovpn
+	rm -f /root/antizapret/client/openvpn/antizapret-tcp/$FILE_NAME-tcp.ovpn
 	rm -f /root/antizapret/client/openvpn/vpn/vpn-$FILE_NAME.ovpn
 	rm -f /root/antizapret/client/openvpn/vpn-udp/vpn-$FILE_NAME-udp.ovpn
 	rm -f /root/antizapret/client/openvpn/vpn-tcp/vpn-$FILE_NAME-tcp.ovpn
@@ -229,8 +229,8 @@ addWireGuard(){
 		fi
 	done
 
-	render "/etc/wireguard/templates/antizapret-client-wg.conf" > "/root/antizapret/client/wireguard/antizapret/antizapret-$FILE_NAME-wg.conf"
-	render "/etc/wireguard/templates/antizapret-client-am.conf" > "/root/antizapret/client/amneziawg/antizapret/antizapret-$FILE_NAME-am.conf"
+	render "/etc/wireguard/templates/antizapret-client-wg.conf" > "/root/antizapret/client/wireguard/antizapret/$FILE_NAME-wg.conf"
+	render "/etc/wireguard/templates/antizapret-client-am.conf" > "/root/antizapret/client/amneziawg/antizapret/$FILE_NAME.conf"
 
 	echo "# Client = ${CLIENT_NAME}
 # PrivateKey = ${CLIENT_PRIVATE_KEY}
@@ -294,7 +294,7 @@ deleteWireGuard(){
 	sed -i '/^$/N;/^\n$/D' /etc/wireguard/antizapret.conf
 	sed -i '/^$/N;/^\n$/D' /etc/wireguard/vpn.conf
 
-	rm -f /root/antizapret/client/{wireguard,amneziawg}/antizapret/antizapret-$FILE_NAME-*.conf
+	rm -f /root/antizapret/client/{wireguard,amneziawg}/antizapret/$FILE_NAME-*.conf
 	rm -f /root/antizapret/client/{wireguard,amneziawg}/vpn/vpn-$FILE_NAME-*.conf
 
 	if systemctl is-active --quiet wg-quick@antizapret; then
