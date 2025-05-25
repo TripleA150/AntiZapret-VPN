@@ -44,9 +44,9 @@ setServerHost_FileName(){
 		SERVER_HOST="$1"
 	fi
 
-	FILE_NAME="${CLIENT_NAME#antizapret-}"
+	FILE_NAME="${CLIENT_NAME}"
 	FILE_NAME="${FILE_NAME#vpn-}"
-	FILE_NAME="${FILE_NAME}-(${SERVER_HOST})"
+	FILE_NAME="${FILE_NAME})"
 }
 
 setServerIP(){
