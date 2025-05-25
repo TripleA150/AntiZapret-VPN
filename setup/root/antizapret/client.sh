@@ -46,7 +46,7 @@ setServerHost_FileName(){
 
 	FILE_NAME="${CLIENT_NAME}"
 	FILE_NAME="${FILE_NAME#vpn-}"
-	FILE_NAME="${FILE_NAME})"
+	FILE_NAME="${FILE_NAME}"
 }
 
 setServerIP(){
