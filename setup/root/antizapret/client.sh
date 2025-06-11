@@ -115,6 +115,15 @@ addOpenVPN(){
 		echo ""
 		echo "Client with that name already exists! Please enter a different name"
 		echo ""
+		if [[ "$CLIENT_CERT_EXPIRE" != "0" ]]; then
+			echo "Current client certificate expiration period:"
+			openssl x509 -in ./pki/issued/$CLIENT_NAME.crt -noout -dates
+			askClientCertExpire
+			echo ""
+			rm -f ./pki/issued/$CLIENT_NAME.crt
+			/usr/share/easy-rsa/easyrsa --batch --days=$CLIENT_CERT_EXPIRE sign client $CLIENT_NAME
+			rm -f /etc/openvpn/client/keys/$CLIENT_NAME.crt
+		fi
 	fi
 
 	if [[ ! -f /etc/openvpn/client/keys/$CLIENT_NAME.crt ]] || \
@@ -323,6 +332,7 @@ recreate(){
 	# OpenVPN
 	if [[ -d "/etc/openvpn/easyrsa3/pki/issued" ]]; then
 		initOpenVPN
+		CLIENT_CERT_EXPIRE=0
 		LC_ALL=C ls /etc/openvpn/easyrsa3/pki/issued | sed 's/\.crt$//' | grep -v "^antizapret-server$" | sort | while read -r CLIENT_NAME; do
 			if [[ "$CLIENT_NAME" =~ ^[a-zA-Z0-9_-]{1,32}$ ]]; then
 				addOpenVPN >/dev/null
@@ -388,8 +398,8 @@ CLIENT_CERT_EXPIRE=$3
 
 if ! [[ "$OPTION" =~ ^[1-8]$ ]]; then
 	echo ""
-	echo "Please choose an option:"
-	echo "    1) OpenVPN - Add client"
+	echo "Please choose option:"
+	echo "    1) OpenVPN - Add client/Renew client certificate"
 	echo "    2) OpenVPN - Delete client"
 	echo "    3) OpenVPN - List clients"
 	echo "    4) WireGuard/AmneziaWG - Add client"
@@ -404,7 +414,7 @@ fi
 
 case "$OPTION" in
 	1)
-		echo "OpenVPN - Add client $CLIENT_NAME $CLIENT_CERT_EXPIRE"
+		echo "OpenVPN - Add client/Renew client certificate $CLIENT_NAME $CLIENT_CERT_EXPIRE"
 		askClientName
 		initOpenVPN
 		addOpenVPN
