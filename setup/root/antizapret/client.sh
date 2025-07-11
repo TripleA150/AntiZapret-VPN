@@ -238,8 +238,8 @@ AllowedIPs = ${CLIENT_IP}/32
 		fi
 	fi
 
-	render "/etc/wireguard/templates/antizapret-client-wg.conf" > "/root/antizapret/client/wireguard/antizapret/FILE_NAME-wg.conf"
-	render "/etc/wireguard/templates/antizapret-client-am.conf" > "/root/antizapret/client/amneziawg/antizapret/FILE_NAME.conf"
+	render "/etc/wireguard/templates/antizapret-client-wg.conf" > "/root/antizapret/client/wireguard/antizapret/$FILE_NAME-wg.conf"
+	render "/etc/wireguard/templates/antizapret-client-am.conf" > "/root/antizapret/client/amneziawg/antizapret/$FILE_NAME.conf"
 
 	# VPN
 
