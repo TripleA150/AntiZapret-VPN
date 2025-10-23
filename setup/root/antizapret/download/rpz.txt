@@ -1,4 +1,24 @@
 ; НЕ РЕДАКТИРУЙТЕ ЭТОТ ФАЙЛ!
-sprosivracha.com A 5.35.8.103
-www.sprosivracha.com A 5.35.8.103
+local IN CNAME .
+*.local IN CNAME .
+cloudflare-dns.com CNAME .
+*.cloudflare-dns.com CNAME .
+dns.nextdns.io CNAME .
+*.dns.nextdns.io CNAME .
+dns.google.com CNAME .
+*.dns.google.com CNAME .
+dns.google CNAME .
+*.dns.google CNAME .
+doh.opendns.com CNAME .
+*.doh.opendns.com CNAME .
+doh.cleanbrowsing.org CNAME .
+*.doh.cleanbrowsing.org CNAME .
+dot.dns.yandex.net CNAME .
+*.dot.dns.yandex.net CNAME .
+dns.adguard-dns.com CNAME .
+*.dns.adguard-dns.com CNAME .
+unfiltered.adguard-dns.com CNAME .
+*.unfiltered.adguard-dns.com CNAME .
+family.adguard-dns.com CNAME .
+*.family.adguard-dns.com CNAME .
 ; НЕ РЕДАКТИРУЙТЕ ЭТОТ ФАЙЛ!

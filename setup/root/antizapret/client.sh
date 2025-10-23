@@ -50,9 +50,9 @@ setServerHost_FileName(){
 }
 
 setServerIP(){
-	SERVER_IP="$(ip -4 addr | sed -ne 's|^.* inet \([^/]*\)/.* scope global.*$|\1|p' | awk '{print $1}' | head -1)"
+	SERVER_IP=$(ip route get 1.2.3.4 | awk '{print $7; exit}')
 	if [[ -z "$SERVER_IP" ]]; then
-		echo 'Default IP address not found!'
+		echo 'Default IPv4 address unavailable!'
 		exit 2
 	fi
 }
@@ -382,7 +382,7 @@ backup(){
 
 	rm -rf /root/antizapret/backup
 
-	echo "Backup of configuration and client data (re)created at $BACKUP_FILE"
+	echo "Backup configuration and clients (re)created at $BACKUP_FILE"
 }
 
 source /root/antizapret/setup
@@ -402,7 +402,7 @@ if ! [[ "$OPTION" =~ ^[1-8]$ ]]; then
 	echo '    4) WireGuard/AmneziaWG - Add client'
 	echo '    5) WireGuard/AmneziaWG - Delete client'
 	echo '    6) WireGuard/AmneziaWG - List clients'
-	echo '    7) Recreate client profile files'
+	echo '    7) (Re)create client profile files'
 	echo '    8) Backup configuration and clients'
 	until [[ "$OPTION" =~ ^[1-8]$ ]]; do
 		read -rp 'Option choice [1-8]: ' -e OPTION
@@ -443,7 +443,7 @@ case "$OPTION" in
 		listWireGuard
 		;;
 	7)
-		echo 'Recreate client profile files'
+		echo '(Re)create client profile files'
 		recreate
 		;;
 	8)
